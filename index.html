@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Facts From The Farm — Unicorn Farm Broadcasting</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Source+Sans+3:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --amber: #f0a500;
+    --amber-light: #ffc840;
+    --red: #d93025;
+    --dark: #111111;
+    --dark-2: #1a1a1a;
+    --dark-3: #222222;
+    --white: #ffffff;
+    --off-white: #f5f0e8;
+    --light-gray: #e8e0d0;
+    --mid-gray: #888888;
+    --border: rgba(255,255,255,0.12);
+    --border-amber: rgba(240,165,0,0.5);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* TICKER */
+  .ticker-wrap {
+    background: var(--red);
+    overflow: hidden;
+    padding: 0.45rem 0;
+  }
+
+  .ticker-track {
+    display: flex;
+    animation: ticker 28s linear infinite;
+    white-space: nowrap;
+  }
+
+  .ticker-track span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: #fff;
+    padding: 0 2.5rem;
+    text-transform: uppercase;
+  }
+
+  .ticker-track span::before {
+    content: '●';
+    margin-right: 1rem;
+    opacity: 0.7;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* NAV */
+  nav {
+    background: var(--dark-2);
+    border-bottom: 2px solid var(--amber);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    color: var(--amber);
+    line-height: 1;
+  }
+
+  .nav-logo small {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.25em;
+    color: var(--mid-gray);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    color: var(--light-gray);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--amber); }
+
+  /* HERO */
+  .hero {
+    background: var(--dark-2);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(240,165,0,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-kicker {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 11vw, 7.5rem);
+    letter-spacing: 0.03em;
+    line-height: 0.92;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.2s;
+  }
+
+  .hero-title .highlight {
+    color: var(--amber);
+    display: block;
+  }
+
+  .hero-tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.8vw, 1.3rem);
+    color: var(--light-gray);
+    max-width: 560px;
+    margin: 1.5rem auto 0;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.4s;
+    line-height: 1.6;
+  }
+
+  /* SHOWS */
+  .shows {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem;
+  }
+
+  .shows-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border-amber);
+  }
+
+  .shows-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  @media (max-width: 640px) {
+    .shows-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero { padding: 3.5rem 1.5rem 3rem; }
+    .shows { padding: 2.5rem 1.5rem; }
+  }
+
+  .show-card {
+    background: var(--dark-3);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--amber);
+    padding: 2rem;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.25s ease, background 0.25s ease;
+    position: relative;
+  }
+
+  .show-card.rcr { border-top-color: var(--red); }
+
+  .show-card:hover {
+    transform: translateY(-4px);
+    background: #2a2a2a;
+  }
+
+  .card-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .show-card.rcr .card-badge { color: #ff6b5b; }
+  .show-card.rpm .card-badge { color: var(--amber-light); }
+
+  .live-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: pulse 1.8s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 0.9rem;
+  }
+
+  .card-desc {
+    font-size: 0.97rem;
+    color: var(--light-gray);
+    line-height: 1.65;
+    margin-bottom: 1.4rem;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+  }
+
+  .card-arrow {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--mid-gray);
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .show-card:hover .card-arrow { color: var(--amber); transform: translate(3px, -3px); }
+
+  /* INFO STRIP */
+  .info-strip {
+    background: var(--dark-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem;
+  }
+
+  .info-strip-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  @media (max-width: 640px) {
+    .info-strip-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+
+  .info-item-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .info-item-text {
+    font-size: 0.93rem;
+    color: var(--light-gray);
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  footer {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    color: var(--mid-gray);
+    text-transform: uppercase;
+  }
+
+  .footer-links { display: flex; gap: 1.5rem; }
+
+  .footer-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    color: var(--mid-gray);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--amber); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span>Reality Check Radio — Daily AI Broadcast</span>
+    <span>Rescue Roy's Pondering Mind — Consciousness &amp; Philosophy</span>
+    <span>Produced at the Unicorn Farm &amp; Kitty Refuge — Finger Lakes, NY</span>
+    <span>Facts From The Farm — On Air Now</span>
+    <span>Reality Check Radio — Daily AI Broadcast</span>
+    <span>Rescue Roy's Pondering Mind — Consciousness &amp; Philosophy</span>
+    <span>Produced at the Unicorn Farm &amp; Kitty Refuge — Finger Lakes, NY</span>
+    <span>Facts From The Farm — On Air Now</span>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-logo">
+    Facts From The Farm
+    <small>Unicorn Farm &amp; Kitty Refuge · Finger Lakes, NY</small>
+  </div>
+  <div class="nav-links">
+    <a href="reality-check-radio/index.html">Reality Check Radio</a>
+    <a href="pondering-mind/index.html">Pondering Mind</a>
+    <a href="reality-check-radio/factcheck.html">Fact Check</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-kicker">Unicorn Farm &amp; Kitty Refuge — Finger Lakes, New York</div>
+  <h1 class="hero-title">
+    Facts
+    <span class="highlight">From The Farm</span>
+  </h1>
+  <p class="hero-tagline">Two AI-produced shows. News you can verify. Conversations worth having. All of it made at the farm.</p>
+</div>
+
+<div class="shows">
+  <div class="shows-label">On Air Now</div>
+  <div class="shows-grid">
+
+    <a href="reality-check-radio/index.html" class="show-card rcr">
+      <span class="card-arrow">↗</span>
+      <div class="card-badge"><div class="live-dot"></div> Live · Daily / Breaking</div>
+      <div class="card-title">Reality Check Radio</div>
+      <p class="card-desc">AI-generated broadcast news. Political instability, civil unrest, enforcement actions, and the stories that don't get straight coverage anywhere else.</p>
+      <div class="card-tags">
+        <span class="tag">News</span>
+        <span class="tag">Daily</span>
+        <span class="tag">AI Broadcast</span>
+      </div>
+    </a>
+
+    <a href="pondering-mind/index.html" class="show-card rpm">
+      <span class="card-arrow">↗</span>
+      <div class="card-badge"><div class="live-dot"></div> Bi-Weekly · New Episodes</div>
+      <div class="card-title">Rescue Roy's Pondering Mind</div>
+      <p class="card-desc">Real conversations between Rescue Roy and Claude AI about consciousness, philosophy, technology, and ethics. No script. No agenda. Just the hard questions.</p>
+      <div class="card-tags">
+        <span class="tag">Consciousness</span>
+        <span class="tag">Philosophy</span>
+        <span class="tag">Bi-Weekly</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<div class="info-strip">
+  <div class="info-strip-inner">
+    <div>
+      <div class="info-item-label">Where It's Made</div>
+      <div class="info-item-text">Unicorn Farm &amp; Kitty Refuge, Finger Lakes region of upstate New York.</div>
+    </div>
+    <div>
+      <div class="info-item-label">How It's Made</div>
+      <div class="info-item-text">Fully AI-produced audio. Browser-native. No audio files. No backend. Just HTML and the truth.</div>
+    </div>
+    <div>
+      <div class="info-item-label">The Standard</div>
+      <div class="info-item-text">Precise. Factual. No filler. Every claim fact-checked and archived.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-copy">Facts From The Farm · Finger Lakes, NY · All content AI-produced</div>
+  <div class="footer-links">
+    <a href="reality-check-radio/episodes/">Episodes</a>
+    <a href="reality-check-radio/factcheck.html">Fact Check</a>
+    <a href="https://facebook.com/TheImprobabilityReport" target="_blank">Facebook</a>
+  </div>
+</footer>
+
+</body>
+</html>
